@@ -1,4 +1,5 @@
-html lang="en"><head><meta charset="utf-8">
+DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Pattern Hunter</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
@@ -48,13 +49,13 @@ details{font-size:13px;color:var(--mu)}
 @keyframes hue{to{filter:hue-rotate(360deg)}}
 #st{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;text-align:center;padding:20px;background:var(--bg) radial-gradient(circle at 50% 20%,#27307a,var(--bg) 65%)}#st h1{font-size:34px}#st p{max-width:420px;color:var(--mu);margin:0}#st .s{font-size:14px;text-align:left}
 </style></head><body>
-<div id="st"><h1>PATTERN HUNTER</h1><p>A hidden maths rule decides which squares are traps. Read the clues, work out the rule, and be the first of four players to reach the gold centre.</p><p class="s">1. Take turns, one step each.<br>2. Red squares are traps and green ones are safe. A green number counts the traps on its four sides.<br>3. Each player gets one guess at the rule.</p><div id="ni"><input maxlength="12" placeholder="Player 1" style="border-color:#ff5470"><input maxlength="12" placeholder="Player 2" style="border-color:#4cc9f0"><input maxlength="12" placeholder="Player 3" style="border-color:#7bed9f"><input maxlength="12" placeholder="Player 4" style="border-color:#c77dff"></div><div class="row" id="ci" style="justify-content:center"><label><input type="checkbox"> P1 CPU</label><label><input type="checkbox"> P2 CPU</label><label><input type="checkbox"> P3 CPU</label><label><input type="checkbox"> P4 CPU</label></div><button class="pw" onclick="go()">Start game</button><button onclick="practice()">Practice mode</button></div>
+<div id="st"><h1>PATTERN HUNTER</h1><p>A hidden maths rule decides which squares are traps. Read the clues, work out the rule, and be the first of four players to reach the gold centre.</p><p class="s">1. Take turns, one step each.<br>2. Red squares are traps and green ones are safe. A green number counts the traps on its four sides.<br>3. Each player gets one guess at the rule.</p><div id="ni"><input maxlength="12" placeholder="Player 1" style="border-color:#ff5470"><input maxlength="12" placeholder="Player 2" style="border-color:#4cc9f0"><input maxlength="12" placeholder="Player 3" style="border-color:#7bed9f"><input maxlength="12" placeholder="Player 4" style="border-color:#c77dff"></div><div class="row" id="ci" style="justify-content:center"><label><input type="checkbox"> P1 CPU</label><label><input type="checkbox"> P2 CPU</label><label><input type="checkbox"> P3 CPU</label><label><input type="checkbox"> P4 CPU</label></div><button class="pw" onclick="go()">Start game</button></div>
 <h1>PATTERN HUNTER</h1>
 <div class="sub">Study the clues. Crack the hidden rule. Race to the centre.</div>
 <div class="g">
 <div id="bw"><div id="bd"></div></div>
 <div id="pn">
-<div id="co" class="hb" style="display:none"><b>Practice mode.</b> Every square shows a·b, its distance to the nearest edges. Red squares are traps, green squares are safe, and a green number counts the traps on its four sides. Find what the red squares have in common, press Declare to test your idea (no penalty here), then walk to the gold centre.<br><button style="margin-top:8px" onclick="again()">Start real game</button></div><div id="tb"></div><div id="cards"></div>
+<div id="tb"></div><div id="cards"></div>
 <div class="hb"><div id="ht"></div><div class="bar"><b id="bf"></b></div><div class="bar" style="margin-top:8px"><b id="tf"></b></div></div>
 <button class="pw" id="dc">Declare the rule</button>
 <div class="row"><label><input type="checkbox" id="ds" checked> Show distances</label><label id="dv" style="display:none"><input type="checkbox" id="ez"> Show answers</label><label><input type="checkbox" id="sd" checked> Sound</label><select id="th"><option value="">Neon</option><option value="sun">Sunset</option><option value="for">Forest</option></select><select id="tk"><option value="">Round</option><option value="sq">Square</option><option value="sr">Star</option></select><button id="rs">New game</button></div>
@@ -89,36 +90,36 @@ const trap=(r,c)=>{if(isCor(r,c)||isG(r,c))return false;const[a,b]=ad(r,c);retur
 const near=(r,c)=>{let n=0;for(let i=-1;i<2;i++)for(let j=-1;j<2;j++)if(((i==0)!=(j==0))&&r+i>=0&&r+i<N&&c+j>=0&&c+j<N&&trap(r+i,c+j))n++;return n};
 const $=id=>document.getElementById(id);
 let AC;function snd(t){if(!$('sd').checked)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();const n=AC.currentTime,S={step:[[520,0,.09,'sine']],x:[[170,0,.2,'sawtooth'],[110,.14,.3,'sawtooth']],win:[[523,0,.16,'triangle'],[659,.16,.16,'triangle'],[784,.32,.16,'triangle'],[1047,.48,.45,'triangle']]}[t];S.forEach(([f,d,l,w])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=w;o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(.18,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+l);o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+l+.05)})}catch(e){}}
-let rule,known,pos,H,skip,imm,gs,cr,st,turn,won,found,cd,tt,hn,NM=['Player 1','Player 2','Player 3','Player 4'],order=[0,1,2,3],oi=0,W=[0,0,0,0],LP=[],BOT=[false,false,false,false],bt=false,bm=false,BP=[],PR=false,Q=false,QT=[],qi=0,qa=0,qs='',q0=0,lastRev,msgs,cells=[],toks=[];
+let rule,known,pos,H,skip,imm,gs,cr,st,turn,won,found,cd,tt,hn,NM=['Player 1','Player 2','Player 3','Player 4'],order=[0,1,2,3],oi=0,W=[0,0,0,0],LP=[],BOT=[false,false,false,false],bt=false,bm=false,Q=false,QT=[],qi=0,qa=0,q0=0,lastRev,msgs,cells=[],toks=[];
 const shuf=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
-function init(){rule=PR?1:Math.random()*RULES.length|0;known=new Map();pos=cor.map(x=>x.slice());H=[[],[],[],[]];skip=[0,0,0,0];imm=[0,0,0,0];gs=[0,0,0,0];cr=[false,false,false,false];st=[0,0,0,0];
+function init(){rule=Math.random()*RULES.length|0;known=new Map();pos=cor.map(x=>x.slice());H=[[],[],[],[]];skip=[0,0,0,0];imm=[0,0,0,0];gs=[0,0,0,0];cr=[false,false,false,false];st=[0,0,0,0];
 turn=order[0];oi=0;won=-1;found=false;cd=HINT;tt=TT;hn=0;LP=[];lastRev='';msgs=[];hide();
 cor.forEach(x=>known.set(x[0]+','+x[1],'S'));
 const all=[];for(let r=0;r<N;r++)for(let c=0;c<N;c++)if(!isCor(r,c)&&!isG(r,c))all.push([r,c]);shuf(all);
-const base=new Map(known),ok=()=>{let n=0;RULES.forEach(x=>{let g=true;known.forEach((v,k)=>{const[r,c]=k.split(',').map(Number);if(isCor(r,c)||isG(r,c))return;const[a,b]=ad(r,c);if(x[1](a,b)!=(v=='T'))g=false});if(g)n++});return n};let tries=0;do{known=new Map(base);shuf(all);let t=0,s=0;for(const[r,c]of all){const T=trap(r,c);if(T&&t<(PR?10:2)){known.set(r+','+c,'T');t++}else if(!T&&s<(PR?10:2)){known.set(r+','+c,'S');s++}}}while(!PR&&ok()<4&&++tries<3000);
+const base=new Map(known),ok=()=>{let n=0;RULES.forEach(x=>{let g=true;known.forEach((v,k)=>{const[r,c]=k.split(',').map(Number);if(isCor(r,c)||isG(r,c))return;const[a,b]=ad(r,c);if(x[1](a,b)!=(v=='T'))g=false});if(g)n++});return n};let tries=0;do{known=new Map(base);shuf(all);let t=0,s=0;for(const[r,c]of all){const T=trap(r,c);if(T&&t<3){known.set(r+','+c,'T');t++}else if(!T&&s<4){known.set(r+','+c,'S');s++}}}while(ok()<4&&++tries<3000);
 say('Study the red and green clues, then step next to your token.');draw()}
 function say(t){t=t.replace(/Player (\d)/g,(m,d)=>NM[d-1]);msgs.unshift(t);msgs=msgs.slice(0,4);$('lg').innerHTML=msgs.map(m=>'<div>'+m+'</div>').join('')}
 function occ(r,c,ex){return pos.findIndex((q,i)=>i!=ex&&q[0]==r&&q[1]==c)}
 function shake(){const b=$('bw');b.classList.remove('shk');void b.offsetWidth;b.classList.add('shk')}
-function nextTurn(){if(PR){turn=0;oi=0;skip[0]=0;tt=TT;return}do{oi=(oi+1)%4;turn=order[oi];if(skip[turn]>0){skip[turn]--;say('Player '+(turn+1)+' misses this turn.');continue}break}while(true);tt=TT}
+function nextTurn(){do{oi=(oi+1)%4;turn=order[oi];if(skip[turn]>0){skip[turn]--;say('Player '+(turn+1)+' misses this turn.');continue}break}while(true);tt=TT}
 function step(r,c){if(won>=0||(BOT[turn]&&!bm))return;const p=turn,[pr,pc]=pos[p];if(Math.abs(pr-r)+Math.abs(pc-c)!=1)return;
 const k=r+','+c,T=trap(r,c);
-if(T&&imm[p]==0){known.set(k,'T');lastRev=k;shake();snd('x');if(++st[p]>=2&&!PR){st[p]=0;pos[p]=cor[p].slice();H[p]=[];say('Second trap in a row! Player '+(p+1)+' is sent home.')}else{skip[p]++;say('Trap! Player '+(p+1)+' is bounced back and misses the next turn.')}nextTurn();draw();return}
+if(T&&imm[p]==0){known.set(k,'T');lastRev=k;shake();snd('x');if(++st[p]>=2){st[p]=0;pos[p]=cor[p].slice();H[p]=[];say('Second trap in a row! Player '+(p+1)+' is sent home.')}else{skip[p]++;say('Trap! Player '+(p+1)+' is bounced back and misses the next turn.')}nextTurn();draw();return}
 let m='';const o=occ(r,c,p);
 if(o>=0){let d=H[o].length?H[o].pop():cor[o];if(occ(d[0],d[1],o)>=0)d=cor[o];pos[o]=d;m='Player '+(o+1)+' was knocked back. ';shake()}
 if(!T)st[p]=0;if(imm[p]>0){imm[p]--;if(T)m+='Immunity carried Player '+(p+1)+' over a trap. '}
 H[p].push(pos[p]);pos[p]=[r,c];snd(isG(r,c)?'win':'step');if(!known.has(k)){known.set(k,T?'T':'S');lastRev=k}
-if(isG(r,c)){won=p;if(!PR)W[p]++;draw();ov(PR?'<h2>Practice complete!</h2><p style="color:var(--mu)">You are ready for the real game.</p><button class="pw" onclick="again()">Start real game</button> <button onclick="practice()">Practice again</button>':podium(p));confetti();return}
+if(isG(r,c)){won=p;W[p]++;draw();ov(podium(p));confetti();return}
 nextTurn();say(m||'Player '+(turn+1)+', your move.');draw()}
 function reveal(){const l=[];for(let r=0;r<N;r++)for(let c=0;c<N;c++)if(!isCor(r,c)&&!isG(r,c)&&!known.has(r+','+c))l.push([r,c]);
 if(!l.length)return;const[r,c]=l[Math.random()*l.length|0];known.set(r+','+c,trap(r,c)?'T':'S');lastRev=r+','+c;
 say(hn%3==2?'Hint: '+HT[(hn/3|0)%HT.length]:'Hint: a square was revealed.');hn++;draw()}
 function ov(h){h=h.replace(/Player (\d)/g,(m,d)=>NM[d-1]);$('oc').innerHTML=h;$('ov').classList.add('on')}
 function hide(){$('ov').classList.remove('on')}
-function declare(){if(won>=0||(!PR&&(found||gs[turn]>=1)))return;ov('<h2>Which rule hides the traps?</h2><div class="o">'+RULES.map((x,i)=>'<button onclick="pick('+i+')">'+x[0]+'</button>').join('')+'<button onclick="hide()" style="background:transparent;color:var(--mu)">Cancel</button></div><p style="color:var(--mu);font-size:13px">'+(PR?'Practice: guess as often as you like.':'One guess per player, so choose carefully. The other players should look away. Wrong answer: miss your next two turns.')+'</p>')}
-function pick(i){hide();const p=turn;if(!PR)gs[p]++;
-if(i==rule){cr[p]=true;found=true;imm[p]=3;say(PR?'Correct! The rule is: '+RULES[rule][0]+'. Now walk to the centre.':'Player '+(p+1)+' cracked the rule! Immune to traps for 3 steps. No more guesses allowed.')}
-else{if(PR){say('Not quite. Study the clues again.');draw();return}skip[p]+=2;say('Player '+(p+1)+' guessed wrong and misses the next two turns.')}
+function declare(){if(won>=0||found||gs[turn]>=1)return;ov('<h2>Which rule hides the traps?</h2><div class="o">'+RULES.map((x,i)=>'<button onclick="pick('+i+')">'+x[0]+'</button>').join('')+'<button onclick="hide()" style="background:transparent;color:var(--mu)">Cancel</button></div><p style="color:var(--mu);font-size:13px">One guess per player, so choose carefully. The other players should look away. Wrong answer: miss your next two turns.</p>')}
+function pick(i){hide();const p=turn;gs[p]++;
+if(i==rule){cr[p]=true;found=true;imm[p]=3;say('Player '+(p+1)+' cracked the rule! Immune to traps for 3 steps. No more guesses allowed.')}
+else{skip[p]+=2;say('Player '+(p+1)+' guessed wrong and misses the next two turns.')}
 nextTurn();draw()}
 function confetti(){for(let i=0;i<70;i++){const d=document.createElement('div');d.className='cf';d.style.left=Math.random()*100+'vw';d.style.background=COL[i%4];d.style.animationDuration=(2+Math.random()*2)+'s';document.body.appendChild(d);setTimeout(()=>d.remove(),4500)}}
 function build(){const b=$('bd');for(let r=0;r<N;r++)for(let c=0;c<N;c++){const d=document.createElement('div');d.onclick=()=>step(r,c);b.appendChild(d);cells.push(d)}
@@ -134,24 +135,22 @@ else if(ds){const[a,b]=ad(r,c);cl+=' u';tx=a+'·'+b}
 if(k==lastRev)cl+=' pop';if(won<0&&Math.abs(pr-r)+Math.abs(pc-c)==1)cl+=' nx';d.className=cl;d.textContent=tx});
 toks.forEach((t,i)=>{t.style.left=pos[i][1]*100/N+'%';t.style.top=pos[i][0]*100/N+'%';t.className='t'+(i==turn&&won<0?' me':'')+(LP[i]&&LP[i]!=pos[i]+''?' hop':'');LP[i]=pos[i]+''});
 $('cards').innerHTML=pos.map((_,i)=>{const on=i==turn&&won<0;return'<div class="cd'+(on?' on':'')+'" style="border-color:'+(on?COL[i]:'')+'"><span style="color:'+COL[i]+'">'+NM[i]+(BOT[i]?' (CPU)':'')+' <small style="color:var(--mu)">'+W[i]+' wins</small></span><span style="color:var(--mu)">'+(imm[i]?'immune '+imm[i]:skip[i]?'misses '+skip[i]+' turn'+(skip[i]>1?'s':''):st[i]?'1 strike':'')+'</span></div>'}).join('');
-$('dc').disabled=won>=0||found||gs[turn]>=1||BOT[turn];$('dc').textContent=found?'Rule already cracked':gs[turn]>=1?'Guess used':PR?'Declare the rule':'Declare the rule (1 guess)';tick();bot()}
-function tick(){$('ht').textContent=PR?'Practice mode: no timers':won<0?'Next hint in '+cd+'s  |  turn: '+tt+'s':'Game over';$('bf').style.width=(cd/HINT*100)+'%';$('tf').style.width=(tt/TT*100)+'%';$('tf').style.background=COL[turn];const b=$('tb');b.textContent=won<0?NM[turn]+'’s turn':'';b.style.color=COL[turn]}
+$('dc').disabled=won>=0||found||gs[turn]>=1||BOT[turn];$('dc').textContent=found?'Rule already cracked':gs[turn]>=1?'Guess used':'Declare the rule (1 guess)';tick();bot()}
+function tick(){$('ht').textContent=won<0?'Next hint in '+cd+'s  |  turn: '+tt+'s':'Game over';$('bf').style.width=(cd/HINT*100)+'%';$('tf').style.width=(tt/TT*100)+'%';$('tf').style.background=COL[turn];const b=$('tb');b.textContent=won<0?NM[turn]+'’s turn':'';b.style.color=COL[turn]}
 $('dc').onclick=declare;$('ds').onchange=draw;$('ez').onchange=draw;$('rs').onclick=again;$('th').onchange=()=>{document.body.className=$('th').value};$('tk').onchange=()=>{$('bw').classList.remove('sq','sr');if($('tk').value)$('bw').classList.add($('tk').value)};
-setInterval(()=>{if(won>=0||$('st')||Q||PR)return;if(--tt<=0){hide();say(NM[turn]+' ran out of time and loses the turn.');nextTurn();draw()}if(--cd<=0){cd=HINT;reveal()}else tick()},1000);
+setInterval(()=>{if(won>=0||$('st')||Q)return;if(--tt<=0){hide();say(NM[turn]+' ran out of time and loses the turn.');nextTurn();draw()}if(--cd<=0){cd=HINT;reveal()}else tick()},1000);
 function go(){NM=[...document.querySelectorAll('#ni input')].map((e,i)=>e.value.replace(/[<>&"]/g,'').trim().slice(0,12)||'Player '+(i+1));BOT=[...document.querySelectorAll('#ci input')].map(e=>e.checked);$('st').remove();again()}
-function practice(){NM=[...document.querySelectorAll('#ni input')].map((e,i)=>e.value.replace(/[<>&"]/g,'').trim().slice(0,12)||'Player '+(i+1));BOT=[false,false,false,false];const s=$('st');if(s)s.remove();order=[0,1,2,3];Q=false;PR=true;$('co').style.display='';init();say('Practice: study the clues, then walk to the centre.')}
-function again(){PR=false;$('co').style.display='none';Q=true;QT=[];qi=0;BP=[0,1,2,3].map(()=>({u:1.5+Math.random()*4,w:Math.random()<.5?1:-1,e:.06+Math.random()*.1}));{const m=Math.random()<.5,a=m?20+Math.random()*70|0:100+Math.random()*800|0,b=m?20+Math.random()*70|0:100+Math.random()*800|0;qa=m?a*b:a+b;qs=a+(m?' × ':' + ')+b}nq()}
+function again(){Q=true;QT=[];qi=0;nq()}
 function nq(){if(qi>=4)return fin();if(BOT[qi]){QT[qi]=8000+Math.random()*14000;qi++;return nq()}
 ov('<h2 style="color:'+COL[qi]+'">'+NM[qi]+', get ready</h2><p style="color:var(--mu)">Solve one sum as fast as you can. The fastest player moves first.</p><button class="pw" onclick="sq()">I am ready</button>')}
-function sq(){
-ov('<h2>'+qs+' = ?</h2><input id="qn" type="number" inputmode="numeric" style="font-size:22px;padding:8px;width:150px;border-radius:10px;border:2px solid '+COL[qi]+';background:var(--pn);color:var(--tx);text-align:center" onkeydown="if(event.keyCode==13)sb()"> <button class="pw" onclick="sb()">Submit</button>');q0=Date.now();setTimeout(()=>$('qn').focus(),50)}
+function sq(){const m=Math.random()<.5,a=m?20+Math.random()*70|0:100+Math.random()*800|0,b=m?20+Math.random()*70|0:100+Math.random()*800|0;qa=m?a*b:a+b;
+ov('<h2>'+a+(m?' × ':' + ')+b+' = ?</h2><input id="qn" type="number" inputmode="numeric" style="font-size:22px;padding:8px;width:150px;border-radius:10px;border:2px solid '+COL[qi]+';background:var(--pn);color:var(--tx);text-align:center" onkeydown="if(event.keyCode==13)sb()"> <button class="pw" onclick="sb()">Submit</button>');q0=Date.now();setTimeout(()=>$('qn').focus(),50)}
 function sb(){const v=$('qn');if(v.value!==''&&+v.value==qa){QT[qi]=Date.now()-q0;qi++;nq()}else{v.value='';v.placeholder='Try again'}}
 function fin(){order=[0,1,2,3].sort((a,b)=>QT[a]-QT[b]);Q=false;hide();init();say('Move order: '+order.map(i=>NM[i]+' ('+(QT[i]/1000).toFixed(1)+'s)').join(', '))}
-function infer(){const s=new Set(),t=new Set();known.forEach((v,k)=>{if(v!='S')return;const[r,c]=k.split(',').map(Number);const n=near(r,c);let kt=0,u=[];[[r+1,c],[r-1,c],[r,c+1],[r,c-1]].forEach(([x,y])=>{if(x<0||y<0||x>=N||y>=N)return;const kk=x+','+y;if(known.get(kk)=='T')kt++;else if(known.get(kk)!='S')u.push(kk)});if(n==kt)u.forEach(z=>s.add(z));else if(n-kt==u.length)u.forEach(z=>t.add(z))});return{s,t}}
-function bot(){if(won>=0||!BOT[turn]||$('st')||Q||bt)return;bt=true;const p=turn;setTimeout(()=>{bt=false;if(turn!=p||won>=0||Q)return;const[r,c]=plan(p);bm=true;step(r,c);bm=false},500+Math.random()*700)}
-function plan(p){const P=BP[p]||{u:3,w:1,e:0},BI=infer();if(Math.random()<P.e){const o=[[pos[p][0]+1,pos[p][1]],[pos[p][0]-1,pos[p][1]],[pos[p][0],pos[p][1]+1],[pos[p][0],pos[p][1]-1]].filter(a=>a[0]>=0&&a[1]>=0&&a[0]<N&&a[1]<N&&known.get(a+'')!='T'&&!BI.t.has(a[0]+','+a[1]));if(o.length)return o[Math.random()*o.length|0]}const d=Array.from({length:N},()=>Array(N).fill(1e9)),pv={},q=[pos[p]];d[pos[p][0]][pos[p][1]]=0;
+function bot(){if(won>=0||!BOT[turn]||$('st')||Q||bt)return;bt=true;const p=turn;setTimeout(()=>{bt=false;if(turn!=p||won>=0||Q)return;const[r,c]=plan(p);bm=true;step(r,c);bm=false},700)}
+function plan(p){const d=Array.from({length:N},()=>Array(N).fill(1e9)),pv={},q=[pos[p]];d[pos[p][0]][pos[p][1]]=0;
 while(q.length){q.sort((a,b)=>d[a[0]][a[1]]-d[b[0]][b[1]]||Math.random()-.5);const[r,c]=q.shift();if(isG(r,c))break;
-for(const[x,y]of[[r+1,c],[r-1,c],[r,c+1],[r,c-1]].sort(()=>Math.random()-.5)){const kk=x+','+y;if(x<0||y<0||x>=N||y>=N||known.get(kk)=='T'||BI.t.has(kk))continue;const w=d[r][c]+(known.get(kk)=='S'||BI.s.has(kk)||isG(x,y)?1:P.u)+(P.w>0?(x!=r?.02:0):(y!=c?.02:0));if(w<d[x][y]){d[x][y]=w;pv[x+','+y]=[r,c];q.push([x,y])}}}
+for(const[x,y]of[[r+1,c],[r-1,c],[r,c+1],[r,c-1]].sort(()=>Math.random()-.5)){if(x<0||y<0||x>=N||y>=N||known.get(x+','+y)=='T')continue;const w=d[r][c]+(known.get(x+','+y)=='S'||isG(x,y)?1:3);if(w<d[x][y]){d[x][y]=w;pv[x+','+y]=[r,c];q.push([x,y])}}}
 let cur=[C,C];if(d[C][C]>=1e9){const n=[[pos[p][0]+1,pos[p][1]],[pos[p][0]-1,pos[p][1]],[pos[p][0],pos[p][1]+1],[pos[p][0],pos[p][1]-1]].filter(a=>a[0]>=0&&a[1]>=0&&a[0]<N&&a[1]<N);return n[Math.random()*n.length|0]}
 while(pv[cur]&&(pv[cur][0]!=pos[p][0]||pv[cur][1]!=pos[p][1]))cur=pv[cur];return cur}
 function podium(p){const d=i=>Math.abs(pos[i][0]-C)+Math.abs(pos[i][1]-C),rk=[0,1,2,3].filter(i=>i!=p).sort((a,b)=>d(a)-d(b)),o=[rk[0],p,rk[1]],h=[90,130,60],lb=['2nd','1st','3rd'];
@@ -160,4 +159,3 @@ function react(e){const d=document.createElement('div');d.className='fx';d.textC
 const dv=()=>{$('dv').style.display=location.hash=='#dev'?'':'none'};dv();addEventListener('hashchange',dv);
 build();init();
 </script></body></html>
-<!DOCTYPE html>
